@@ -7,8 +7,7 @@ int main() {
 	std::cout << "Hello World";
 	std::cin.get();
 	return 0;
-}
-*/
+}*/
 // List 2.10
 // Programming 2D Games
 // Copyright (c) 2011 by Chales Kelly
@@ -24,9 +23,9 @@ LRESULT WINAPI WinProc(HWND, UINT, WPARAM, LPARAM);
 HINSTANCE hinst;
 //定数
 const char CLASS_NAME[] = "WinMain";
-const char APP_TITLE[] = "Hello World";
-const int WINDOW_WIDTH = 400;
-const int WINDOW_HEIGHT = 400;
+const char APP_TITLE[] = "Hello my World";
+const int WINDOW_WIDTH = 300;
+const int WINDOW_HEIGHT = 300;
 //===============================
 //Windowsアプリケーションの開始点
 //===============================
@@ -43,6 +42,7 @@ int WINAPI WinMain( HINSTANCE hInstance,
 	int done = 0;
 	while(!done)
 	{
+		//PeekMessageは待たない、待つ場合はGetMessage()
 		if(PeekMessage(&msg,NULL,0,0,PM_REMOVE))
 		{
 			if(msg.message == WM_QUIT)
@@ -96,7 +96,6 @@ bool CreateMainWindow(HINSTANCE hInstance, int nCmdShow)
 		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT,
 		CW_USEDEFAULT,
-		WINDOW_WIDTH,
 		WINDOW_HEIGHT,
 		(HWND)NULL,
 		(HMENU)NULL,
