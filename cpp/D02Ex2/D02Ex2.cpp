@@ -2,10 +2,11 @@
 using namespace std;
 
 int main() {
+	//必要な変数を宣言する
     char name[50];
     int score;
     char grade;
-
+	//名前と点数を入力させる
     cout << "名前を入力してください:";
     cin >> name;
     cout << "点数を入力してください:";
