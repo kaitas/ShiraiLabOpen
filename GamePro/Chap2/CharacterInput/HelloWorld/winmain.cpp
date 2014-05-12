@@ -18,7 +18,8 @@ RECT rect;
 PAINTSTRUCT ps;
 //íËêî
 const char CLASS_NAME[] = "Keyboard";
-const char APP_TITLE[] = "Char Input";
+//const char APP_TITLE[] = "Char Input"; //ëÊ1âÒ
+const char APP_TITLE[] = "DirectX Window";   //ëÊ2âÒ DirectX
 const int WINDOW_WIDTH = 400;
 const int WINDOW_HEIGHT = 300;
 //===============================
