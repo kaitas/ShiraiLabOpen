@@ -45,8 +45,8 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance,
         // Create Graphics object
         graphics = new Graphics;
         // Initialize Graphics, throws GameError
-//        graphics->initialize(hwnd, GAME_WIDTH, GAME_HEIGHT, FULLSCREEN); //FULLSCREENはどこで定義されているか確認せよ
-        graphics->initialize(hwnd, GAME_WIDTH, GAME_HEIGHT, false); //こうするとウインドウモード
+        graphics->initialize(hwnd, GAME_WIDTH, GAME_HEIGHT, FULLSCREEN); //FULLSCREENはどこで定義されているか確認せよ
+//        graphics->initialize(hwnd, GAME_WIDTH, GAME_HEIGHT, false); //こうするとウインドウモード
 
         // main message loop
         int done = 0;

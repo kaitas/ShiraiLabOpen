@@ -114,7 +114,8 @@ HRESULT Graphics::showBackbuffer()
     result = E_FAIL;    // default to fail, replace on success
     // (this function will be moved in later versions)
     // Clear the backbuffer to lime green 
-    device3d->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0,255,0), 0.0f, 0);
+//    device3d->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0,255,0), 0.0f, 0);
+    device3d->Clear(0, NULL, D3DCLEAR_TARGET, BLUE, 0.0f, 0);
 
     // Display backbuffer to screen
     result = device3d->Present(NULL, NULL, NULL, NULL);

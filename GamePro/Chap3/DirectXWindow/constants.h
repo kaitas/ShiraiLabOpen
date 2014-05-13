@@ -26,9 +26,16 @@
 // window
 const char CLASS_NAME[] = "WinMain";
 const char GAME_TITLE[] = "DirectX Fullscreen";
-const bool FULLSCREEN = true;               // window or fullscreen
+// const bool FULLSCREEN = true;               // window or fullscreen
+const bool FULLSCREEN = false;               // window or fullscreen
 const UINT  GAME_WIDTH =  640;              // width of game in pixels
 const UINT  GAME_HEIGHT = 480;              // height of game in pixels
+
+// User defines 
+#define RED		D3DCOLOR_ARGB(0xff,255,0,0)
+#define GREEN   D3DCOLOR_ARGB(0xff,0,255,0)
+#define BLUE    D3DCOLOR_ARGB(0xff,0,0,255)
+
 
 // key mappings
 // In this game simple constants are used for key mappings. If variables were used

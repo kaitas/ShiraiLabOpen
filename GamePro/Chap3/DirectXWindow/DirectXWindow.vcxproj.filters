@@ -26,10 +26,10 @@
     <ClInclude Include="graphics.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="constants.h">
+    <ClInclude Include="gameError.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="gameError.h">
+    <ClInclude Include="constants.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
