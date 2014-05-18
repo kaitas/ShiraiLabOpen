@@ -2,6 +2,11 @@
 // Copyright (c) 2011 by: 
 // Charles Kelly
 // Chapter 4 game.cpp v1.0
+//////////////////////////////
+//GameProg 課題のため改変したコード。タイトルバーに現在のFPSを表示
+//変更点は　206行目Game::run内において後述のsetWindowTitleFPS呼び出し
+//          254~259行目setWindowTitleFPSの追加 タイトルバーにFPSを表示する
+
 
 #include "game.h"
 
@@ -196,6 +201,10 @@ void Game::run(HWND hwnd)
     if (frameTime > MAX_FRAME_TIME) // if frame rate is very slow
         frameTime = MAX_FRAME_TIME; // limit maximum frameTime
 
+	/////GameProg 課題サンプル　変更箇所/////////
+	setWindowTitleFPS(hwnd,frameTime);
+	/////////////////////////////////////////////
+
     timeStart = timeEnd;
 
     // update(), ai(), and collisions() are pure virtual functions.
@@ -239,3 +248,11 @@ void Game::deleteAll()
     SAFE_DELETE(input);
     initialized = false;
 }
+/////////GameProg 課題サンプル　変更箇所/////////
+void Game::setWindowTitleFPS(HWND hwnd,float frameTime)
+{	
+	TCHAR strFPS[ 10 ];
+	sprintf(strFPS, _T("%.2f"), 1.0f/frameTime);      //1フレームの時間からFPSを計算し文字列に変換
+	SendMessage(hwnd, WM_SETTEXT, 0, (LPARAM)strFPS); //メッセージの送信(タイトルのセット)
+}
+//////////////////////////////////////////////

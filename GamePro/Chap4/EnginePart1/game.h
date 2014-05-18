@@ -2,6 +2,8 @@
 // Copyright (c) 2011 by: 
 // Charles Kelly
 // Chapter 4 game.h v1.0
+//GameProg 課題のため改変したコード。タイトルバーに現在のFPSを表示
+//変更点は　19行目 tchar.hのインクルード，107行目setWindowTitleFPS定義の追加
 
 #ifndef _GAME_H                 // prevent multiple definitions if this 
 #define _GAME_H                 // ..file is included in more than one place
@@ -13,6 +15,8 @@
 #include "input.h"
 #include "constants.h"
 #include "gameError.h"
+/////GameProg 課題サンプル　変更箇所/////////
+#include <tchar.h>
 
 class Game
 {
@@ -92,6 +96,10 @@ public:
     // Call graphics->spriteEnd();
     //   draw non-sprites
     virtual void render() = 0;
+
+/////GameProg 課題サンプル　変更箇所/////////
+    virtual void setWindowTitleFPS(HWND hwnd,float frameTime);
+
 };
 
 #endif
