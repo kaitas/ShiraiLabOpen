@@ -13,32 +13,35 @@
 // The primary class should inherit from Game class
 
 //=============================================================================
-// Constructor
+// Constructor コンストラクタ
 //=============================================================================
 Game::Game()
 {
     input = new Input();        // initialize keyboard input immediately
+								//キーボードインプットをまず初期化
     // additional initialization is handled in later call to input->initialize()
-    paused = false;             // game is not paused
+	// そのほかの初期化はinput->initialize()を呼び出して処理
+    paused = false;             // game is not paused ゲームは一時停止されていない状態
     graphics = NULL;
     initialized = false;
 }
 
 //=============================================================================
-// Destructor
+// Destructor デストラクタ
 //=============================================================================
 Game::~Game()
 {
-    deleteAll();                // free all reserved memory
-    ShowCursor(true);           // show cursor
+    deleteAll();                // free all reserved memory すべての予約されたメモリを解放
+    ShowCursor(true);           // show cursor カーソルを表示
 }
 
 //=============================================================================
-// Window message handler
+// Window message handler ウインドウメッセージハンドラ
 //=============================================================================
 LRESULT Game::messageHandler( HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam )
 {
     if(initialized)     // do not process messages if not initialized
+		// 初期化されていない場合はメッセージを処理しない
     {
         switch( msg )
         {
@@ -51,13 +54,13 @@ LRESULT Game::messageHandler( HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam 
             case WM_KEYUP: case WM_SYSKEYUP:        // key up
                 input->keyUp(wParam);
                 return 0;
-            case WM_CHAR:                           // character entered
+            case WM_CHAR:                           // character entered 文字が入力された
                 input->keyIn(wParam);
                 return 0;
             case WM_MOUSEMOVE:                      // mouse moved
                 input->mouseIn(lParam);
                 return 0;
-            case WM_INPUT:                          // raw mouse data in
+            case WM_INPUT:                          // raw mouse data in マウスからの生のデータ入力
                 input->mouseRawIn(lParam);
                 return 0;
             case WM_LBUTTONDOWN:                    // left mouse button down
@@ -89,6 +92,7 @@ LRESULT Game::messageHandler( HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam 
                 input->mouseIn(lParam);             // mouse position
                 return 0;
             case WM_DEVICECHANGE:                   // check for controller insert
+				//コントローラーが挿入されたかどうかチェック
                 input->checkControllers();
                 return 0;
         }
@@ -97,26 +101,27 @@ LRESULT Game::messageHandler( HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam 
 }
 
 //=============================================================================
-// Initializes the game
-// throws GameError on error
+// Initializes the game  ゲームを初期化
+// throws GameError on error エラー時にGameErrorを投げる(エラーをthrowする)
 //=============================================================================
 void Game::initialize(HWND hw)
 {
-    hwnd = hw;                                  // save window handle
+    hwnd = hw;          // save window handle ウインドウハンドルを保存
 
-    // initialize graphics
+    // initialize graphics  グラフィックスを初期化
     graphics = new Graphics();
-    // throws GameError
+    // throws GameError GameErrorを投げる
     graphics->initialize(hwnd, GAME_WIDTH, GAME_HEIGHT, FULLSCREEN);
 
     // initialize input, do not capture mouse
-    input->initialize(hwnd, false);             // throws GameError
+	// 入力を初期化、マウスはキャプチャしない
+    input->initialize(hwnd, false);             // throws GameError エラーを投げる
 
-    // attempt to set up high resolution timer
+    // attempt to set up high resolution timer 高分解能(高精度)タイマーのセットを試す
     if(QueryPerformanceFrequency(&timerFreq) == false)
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing high resolution timer"));
 
-    QueryPerformanceCounter(&timeStart);        // get starting time
+    QueryPerformanceCounter(&timeStart);        // get starting time 開始時間を取得
 
     initialized = true;
 }
@@ -143,24 +148,29 @@ void Game::renderGame()
 }
 
 //=============================================================================
-// Handle lost graphics device
+// Handle lost graphics device 消失したグラフィックスデバイスを処理
 //=============================================================================
 void Game::handleLostGraphicsDevice()
 {
+	// デバイスの消失をテストし、それに応じて処理を実行
     // test for and handle lost device
     hr = graphics->getDeviceState();
+	// グラフィックステバイスが有効な状態でない場合
     if(FAILED(hr))                  // if graphics device is not in a valid state
     {
+		// デバイスが消失しており、リセットできる状態にない場合
         // if the device is lost and not available for reset
         if(hr == D3DERR_DEVICELOST)
         {
-            Sleep(100);             // yield cpu time (100 mili-seconds)
+            Sleep(100);             // yield cpu time (100 mili-seconds) CPU時間を明け渡す(100ミリ秒)
             return;
         } 
-        // the device was lost but is now available for reset
+		// デバイスが消失しているが、リセットできる状態にある場合
+        // the device was lost but is now available for reset 
         else if(hr == D3DERR_DEVICENOTRESET)
         {
             releaseAll();
+			// グラフイツクスデバイスのリセットを試みる
             hr = graphics->reset(); // attempt to reset graphics device
             if(FAILED(hr))          // if reset failed
                 return;
@@ -172,6 +182,7 @@ void Game::handleLostGraphicsDevice()
 }
 
 //=============================================================================
+// WinMainのなかで繰り返し呼ばれるメッセージループ
 // Call repeatedly by the main message loop in WinMain
 //=============================================================================
 void Game::run(HWND hwnd)
@@ -184,26 +195,27 @@ void Game::run(HWND hwnd)
     frameTime = (float)(timeEnd.QuadPart - timeStart.QuadPart ) / 
                 (float)timerFreq.QuadPart;
 
+	// 省電力コード、winmm.libが必要
     // Power saving code, requires winmm.lib
+	// 希望するフレームレートに対して経過時間が短い場合（つまり十分に速いとき）
     // if not enough time has elapsed for desired frame rate
     if (frameTime < MIN_FRAME_TIME) 
     {
         sleepTime = (DWORD)((MIN_FRAME_TIME - frameTime)*1000);
-        timeBeginPeriod(1);         // Request 1mS resolution for windows timer
-        Sleep(sleepTime);           // release cpu for sleepTime
-        timeEndPeriod(1);           // End 1mS timer resolution
+        timeBeginPeriod(1);         // Request 1mS resolution for windows timer 1ミリ秒の分解能をWindowsのタイマーに要求
+        Sleep(sleepTime);           // release cpu for sleepTime CPUをsleepTimeのあいだだけ解放(sleep)させる
+        timeEndPeriod(1);           // End 1mS timer resolution 1ミリ秒の動作精度終わり
         return;
     }
 
     if (frameTime > 0.0)
-        fps = (fps*0.99f) + (0.01f/frameTime);  // average fps
+        fps = (fps*0.99f) + (0.01f/frameTime);  // average fps 平均FPS
 
-    if (frameTime > MAX_FRAME_TIME) // if frame rate is very slow
-        frameTime = MAX_FRAME_TIME; // limit maximum frameTime
+    if (frameTime > MAX_FRAME_TIME) // if frame rate is very slow フレームレートがとても遅いとき
+        frameTime = MAX_FRAME_TIME; // limit maximum frameTime 最大フレームレートに制限する
 
-	/////GameProg 課題サンプル　変更箇所/////////
+	/////GameProg 課題サンプル　変更箇所 ウィンドウタイトルにFPSを書き込む
 	setWindowTitleFPS(hwnd,frameTime);
-	/////////////////////////////////////////////
 
     timeStart = timeEnd;
 

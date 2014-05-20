@@ -31,10 +31,10 @@ const UINT GAME_HEIGHT = 480;               // height of game in pixels
  
 // game
 const double PI = 3.14159265;
-const float FRAME_RATE  = 200.0f;               // the target frame rate (frames/sec)
-const float MIN_FRAME_RATE = 10.0f;             // the minimum frame rate
-const float MIN_FRAME_TIME = 1.0f/FRAME_RATE;   // minimum desired time for 1 frame
-const float MAX_FRAME_TIME = 1.0f/MIN_FRAME_RATE; // maximum time used in calculations
+const float FRAME_RATE  = 200.0f;               // the target frame rate (frames/sec) ñ⁄ïWFPS
+const float MIN_FRAME_RATE = 10.0f;             // the minimum frame rate ç≈í·FPS
+const float MIN_FRAME_TIME = 1.0f/FRAME_RATE;   // minimum desired time for 1 frame ç≈è¨ÇÃFPSÇÃÇ∆Ç´ÇÃåoâﬂéûä‘
+const float MAX_FRAME_TIME = 1.0f/MIN_FRAME_RATE; // maximum time used in calculations ç≈ëÂÇÃèàóùéûä‘
 
 // key mappings
 // In this game simple constants are used for key mappings. If variables were used

@@ -152,10 +152,11 @@ bool Graphics::isAdapterCompatible()
 }
 
 //=============================================================================
-// Test for lost device
+// Test for lost device デバイスが消失していないかチェック
 //=============================================================================
 HRESULT Graphics::getDeviceState()
 { 
+	// 失敗をデフォルトとして成功時に置き換える
     result = E_FAIL;    // default to fail, replace on success
     if (device3d == NULL)
         return  result;
@@ -164,10 +165,11 @@ HRESULT Graphics::getDeviceState()
 }
 
 //=============================================================================
-// Reset the graphics device
+// Reset the graphics device グラフィックスデバイスをリセット
 //=============================================================================
 HRESULT Graphics::reset()
 {
+	// 失敗をデフォルトとして成功時に置き換える
     result = E_FAIL;    // default to fail, replace on success
     initD3Dpp();                        // init D3D presentation parameters
     result = device3d->Reset(&d3dpp);   // attempt to reset graphics device
