@@ -146,7 +146,7 @@ void Image::draw(SpriteData sd, COLOR_ARGB color)
 // typically called once per frame
 // 通常、フレームごとに1回呼び出す
 // frameTime is used to regulate the speed of movement and animation
-// frameTimeは、移動とアニメーションの早さを制御するために使用		P163
+// frameTimeは、移動とアニメーションの速さを制御するために使用		P163
 //=============================================================================
 void Image::update(float frameTime)
 {

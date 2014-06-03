@@ -104,7 +104,20 @@ void Spacewar::update()
             ship.setY((float)-ship.getHeight());    // position off screen top	// 画面の上に配置
     }
 
-    ship.update(frameTime);
+    ship.update(frameTime); //アニメーションのフレームを更新
+	//宇宙船を回転
+	ship.setDegrees(ship.getDegrees() - frameTime * ROTATION_RATE ); 
+	//宇宙船を縮小
+	ship.setScale(ship.getScale() - frameTime * SCALE_RATE );
+	if (ship.getScale()<0) {
+		ship.setScale(SHIP_SCALE);
+	}
+	//もし右にはみ出したらリセットする
+	if (ship.getX() > GAME_WIDTH ) {
+		ship.setX((float)-ship.getWidth());
+		ship.setScale(SHIP_SCALE);
+	}
+
 }
 
 //=============================================================================
@@ -128,9 +141,10 @@ void Spacewar::render()
     graphics->spriteBegin();                // begin drawing sprites			// スプライトの描画を開始
 
     nebula.draw();                          // add the orion nebula to the scene// オリオン星雲をシーンに追加
-    planet.draw();                          // add the planet to the scene		// 惑星をシーンに追加
+//    planet.draw();                          // add the planet to the scene		// 惑星をシーンに追加
     ship.draw();                            // add the spaceship to the scene	// 宇宙船をシーンに追加
-
+    planet.draw();
+	
     graphics->spriteEnd();                  // end drawing sprites				// スプライトの描画を終了
 }
 
