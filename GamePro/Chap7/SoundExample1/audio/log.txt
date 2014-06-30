@@ -1,0 +1,121 @@
+General
+	Project = C:\Users\aki\Documents\GitHub\ShiraiLabOpen\GamePro\Chap7\SoundExample1\audio\SoundExample1.xap
+	Build Platform = Windows
+	Timestamp = Mon Jun 30 12:23:20 2014
+	Content Version = 46
+
+Referenced Variables (0)
+
+Referenced Categories (2)
+	Category = Global
+	Parent = <none>
+	Instance Limit = <none>
+	Instance Limit Behavior = <none>
+
+	Category = Default
+	Parent = Global
+	Instance Limit = <none>
+	Instance Limit Behavior = <none>
+
+Valid Cues (6)
+	audacity-test
+	Sound Bank = MySoundBank
+	Interactive = Non-Interactive
+	Looping = Looping
+	Instance Limit = <none>
+	Instance Limit Behavior = <none>
+	Dependant Wave Banks = MyWaveBank
+	Cue Instance Variables = <none>
+	Global Variables = <none>
+	Notes = <none>
+
+	beep2
+	Sound Bank = MySoundBank
+	Interactive = Non-Interactive
+	Looping = Non-Looping
+	Instance Limit = <none>
+	Instance Limit Behavior = <none>
+	Dependant Wave Banks = MyWaveBank
+	Cue Instance Variables = <none>
+	Global Variables = <none>
+	Notes = <none>
+
+	beep1
+	Sound Bank = MySoundBank
+	Interactive = Non-Interactive
+	Looping = Non-Looping
+	Instance Limit = <none>
+	Instance Limit Behavior = <none>
+	Dependant Wave Banks = MyWaveBank
+	Cue Instance Variables = <none>
+	Global Variables = <none>
+	Notes = <none>
+
+	beep3
+	Sound Bank = MySoundBank
+	Interactive = Non-Interactive
+	Looping = Non-Looping
+	Instance Limit = <none>
+	Instance Limit Behavior = <none>
+	Dependant Wave Banks = MyWaveBank
+	Cue Instance Variables = <none>
+	Global Variables = <none>
+	Notes = <none>
+
+	beep4
+	Sound Bank = MySoundBank
+	Interactive = Non-Interactive
+	Looping = Non-Looping
+	Instance Limit = <none>
+	Instance Limit Behavior = <none>
+	Dependant Wave Banks = MyWaveBank
+	Cue Instance Variables = <none>
+	Global Variables = <none>
+	Notes = <none>
+
+	hit
+	Sound Bank = MySoundBank
+	Interactive = Non-Interactive
+	Looping = Non-Looping
+	Instance Limit = <none>
+	Instance Limit Behavior = <none>
+	Dependant Wave Banks = MyWaveBank
+	Cue Instance Variables = <none>
+	Global Variables = <none>
+	Notes = <none>
+
+Referenced Wave Banks (1)
+	Wave Bank = MyWaveBank
+	Type = In-Memory
+	Wave Names = Omitted
+	Num Waves = 6
+	Dependant Sound Banks = MySoundBank
+
+Sound Banks (1)
+	Sound Bank = MySoundBank
+	Cue Names = Included
+	Dependant Wave Banks = MyWaveBank
+
+Unreferenced Waves (0)
+
+Unreferenced Sounds (0)
+
+Unreferenced Wave Banks (0)
+
+Unreferenced Variables (4)
+	Variable = OrientationAngle
+	Variable = DopplerPitchScalar
+	Variable = SpeedOfSound
+	Variable = Distance
+
+Unreferenced Categories (1)
+	Category = Music
+
+Unreferenced RPC Presets (0)
+
+Unreferenced DSP Presets (0)
+
+Invalid Cues (0)
+
+Invalid Sounds (0)
+
