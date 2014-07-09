@@ -1,6 +1,6 @@
-// Draw Euclidean from "Programming Collective Intelligence"
+// Draw Euclidean from "Programming Collective Intelligence" to a PDF
 // http://shop.oreilly.com/product/9780596529321.do
-// Akihiko SHIRAI (shirai@mail.com) 20140702
+// Akihiko SHIRAI (shirai atto mail.com) 20140709
 // for Master Lecture "Entainment Systems"
 // it may include some errors 
 
@@ -143,9 +143,7 @@ float Distance(int m1,int m2,int p1, int p2) {
         text("min ["+DistPers[0]+"]="+DistVal[0], width*0.6, height*0.1);
         text("Max ["+DistPers[DistPers.length-1]+"]="+DistVal[DistVal.length-1], width*0.6, height*0.15);
         save("png/M"+m1+"-M"+m2+".png");
-
-        //save a PDF page
-        pdf.nextPage();
+        pdf.nextPage();         //save a PDF page
 
       }
     }
