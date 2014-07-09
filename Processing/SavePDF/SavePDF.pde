@@ -2,7 +2,7 @@ import processing.pdf.*;
 
 PGraphicsPDF pdf;
 
-PImage[] img = new PImage[13];
+PImage[] img = new PImage[12];
 
 void setup() {
   size(1280, 960);
