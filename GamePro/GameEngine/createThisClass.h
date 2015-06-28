@@ -23,6 +23,10 @@ private:
     // game items
     TextureManager menuTexture; // textures
     Image   menu;               // menu image
+	//Add by Aki
+	TextureManager shipTexture;     // ship texture
+	Image   ship;                   // ship image
+
     TextDX  *dxFont;            // DirectX font
     std::string  message;
     float messageY;

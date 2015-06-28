@@ -33,6 +33,7 @@ const float MAX_FRAME_TIME = 1.0f/MIN_FRAME_RATE; // maximum time used in calcul
 // graphic images
 //const char MENU_IMAGE[] =     "pictures\\menu.png";      // menu texture
 const char MENU_IMAGE[] =     "pictures\\LV2015akiL.jpg";      // my texture
+const char SHIP_IMAGE[] = "pictures\\42386.png"; // Andor Genesis (not Solvalou ;-)
 
 // audio files required by audio.cpp
 // WAVE_BANK must be location of .xwb file.
@@ -42,7 +43,7 @@ const char SOUND_BANK[] = "audio\\Win\\Sound Bank.xsb";
 
 // audio cues
 const char BGM[] = "marcus_kellis_theme"; //marcus_kellis_theme
-
+const char HIT[] = "Hit03-1"; // from http://musicisvfr.com/free/se/hit01.html
 
 // key mappings
 // In this game simple constants are used for key mappings. If variables were used
@@ -51,7 +52,12 @@ const UCHAR CONSOLE_KEY  = '`';         // ` key
 const UCHAR ESC_KEY      = VK_ESCAPE;   // escape key
 const UCHAR ALT_KEY      = VK_MENU;     // Alt key
 const UCHAR ENTER_KEY    = VK_RETURN;   // Enter key
-
+//add by aki
+const UCHAR SHIP_LEFT_KEY    = VK_LEFT;     // left arrow
+const UCHAR SHIP_RIGHT_KEY   = VK_RIGHT;    // right arrow
+const UCHAR SHIP_UP_KEY      = VK_UP;       // up arrow
+const UCHAR SHIP_DOWN_KEY    = VK_DOWN;     // down arrow
+const UCHAR SHIP_SPACE_KEY   = VK_SPACE;	// スペースキー
 //=============================================================================
 // Function templates for safely dealing with pointer referenced items.
 // The functions defined by these templates may be called using a normal

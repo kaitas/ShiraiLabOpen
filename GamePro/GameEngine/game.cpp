@@ -148,7 +148,6 @@ void Game::initialize(HWND hw)
                 throw(GameError(gameErrorNS::FATAL_ERROR, "Failed to initialize sound system."));
         }
     }
-        audio->playCue(BGM); 
 
     // attempt to set up high resolution timer
     if(QueryPerformanceFrequency(&timerFreq) == false)

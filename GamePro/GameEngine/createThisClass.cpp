@@ -40,6 +40,20 @@ void CreateThis::initialize(HWND hwnd)
     if (!menu.initialize(graphics,0,0,0,&menuTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing menu"));
 
+	//Add by aki
+	// spaceship texture
+    if (!shipTexture.initialize(graphics,SHIP_IMAGE))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ship texture"));
+    // ship
+    if (!ship.initialize(graphics,99, 99, 5, &shipTexture))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ship"));
+    ship.setX(GAME_WIDTH/4);
+    ship.setY(GAME_HEIGHT/4);
+    ship.setFrames(0, 4);   // animation frames
+    ship.setCurrentFrame(0);     // starting frame
+    ship.setFrameDelay(0.2);
+
+
     // initialize DirectX font
     // 18 pixel high Arial
     if(dxFont->initialize(graphics, 18, true, false, "Arial") == false)
@@ -62,6 +76,8 @@ void CreateThis::initialize(HWND hwnd)
     message += "TCP/IP and UDP/IP Network Support\n\n";
     messageY = GAME_HEIGHT;
 
+    audio->playCue(BGM);
+
     return;
 }
 
@@ -70,7 +86,11 @@ void CreateThis::initialize(HWND hwnd)
 //=============================================================================
 void CreateThis::update()
 {
-    if(menu.getDegrees() > 0)
+    if(input->isKeyDown(SHIP_SPACE_KEY)) {
+		audio->playCue(HIT);
+	}
+
+	if(menu.getDegrees() > 0)
     {
         menu.setDegrees(menu.getDegrees() - frameTime * 120);
         menu.setScale(menu.getScale() + frameTime * 0.4f);
@@ -90,6 +110,10 @@ void CreateThis::update()
 		audio->stopCue(BGM);
         audio->playCue(BGM);
     }
+	ship.setX(100);
+	ship.setY(100);
+    ship.update(frameTime);
+
 }
 
 //=============================================================================
@@ -112,10 +136,14 @@ void CreateThis::render()
     graphics->spriteBegin();                // begin drawing sprites
 
     menu.draw();
+    ship.draw();                            // add by Aki
     dxFont->setFontColor(graphicsNS::ORANGE);
     dxFont->print(message,20,(int)messageY);
 
     graphics->spriteEnd();                  // end drawing sprites
+
+
+
 }
 
 //=============================================================================

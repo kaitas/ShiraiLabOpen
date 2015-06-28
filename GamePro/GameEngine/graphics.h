@@ -65,7 +65,8 @@ namespace graphicsNS
     const COLOR_ARGB ALPHA25 = D3DCOLOR_ARGB( 64,255,255,255);  // AND with color to get 25% alpha
     const COLOR_ARGB ALPHA50 = D3DCOLOR_ARGB(128,255,255,255);  // AND with color to get 50% alpha
     const COLOR_ARGB BACK_COLOR = NAVY;                         // background color of game
-    const COLOR_ARGB TRANSCOLOR = MAGENTA;                      // transparent color
+//    const COLOR_ARGB TRANSCOLOR = MAGENTA;                      // transparent color
+    const COLOR_ARGB TRANSCOLOR = D3DCOLOR_ARGB(255,0, 128,  0); // for XEVIOUS sprites (ARGB)
 
     enum DISPLAY_MODE{TOGGLE, FULLSCREEN, WINDOW};
 }
