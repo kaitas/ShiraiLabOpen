@@ -72,7 +72,7 @@ void Spacewar::initialize(HWND hwnd)
 		}
 //		ships[i].setX(i)+rand(); ships[i].setY(i); //ˆê’¼ü‚¾‚Æ‚Â‚Ü‚ç‚È‚¢‚Ì‚Åƒ‰ƒ“ƒ_ƒ€‚É‚µ‚Ü‚µ‚½
 		ships[i].setX(GAME_WIDTH*rand()/(RAND_MAX + 1));
-		ships[i].setY(i);
+		ships[i].setY(GAME_HEIGHT*i/MAX_SHIPS);
 	}
 
     return;

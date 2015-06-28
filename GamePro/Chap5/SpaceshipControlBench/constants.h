@@ -30,6 +30,7 @@
 const char NEBULA_IMAGE[] = "pictures\\orion.jpg";  // photo source NASA/courtesy of nasaimages.org 
 const char PLANET_IMAGE[] = "pictures\\planet.png"; // picture of planet
 const char SHIP_IMAGE[]   = "pictures\\ship.png";   // spaceship
+//const char SHIP_IMAGE[]   = "pictures\\kait_logo02_500W.jpg";   // spaceship
 
 // window
 const char CLASS_NAME[] = "Spacewar";
