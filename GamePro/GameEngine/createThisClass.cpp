@@ -87,6 +87,8 @@ void CreateThis::update()
         menu.setScale(0.002861f);
         menu.setY(0);
         messageY = GAME_HEIGHT;
+		audio->stopCue(BGM);
+        audio->playCue(BGM);
     }
 }
 

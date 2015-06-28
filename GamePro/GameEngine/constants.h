@@ -31,15 +31,18 @@ const float MIN_FRAME_TIME = 1.0f/FRAME_RATE;   // minimum desired time for 1 fr
 const float MAX_FRAME_TIME = 1.0f/MIN_FRAME_RATE; // maximum time used in calculations
 
 // graphic images
-const char MENU_IMAGE[] =     "pictures\\menu.png";      // menu texture
+//const char MENU_IMAGE[] =     "pictures\\menu.png";      // menu texture
+const char MENU_IMAGE[] =     "pictures\\LV2015akiL.jpg";      // my texture
 
 // audio files required by audio.cpp
 // WAVE_BANK must be location of .xwb file.
-const char WAVE_BANK[]  = "";
+const char WAVE_BANK[]  = "audio\\Win\\Wave Bank.xwb";
 // SOUND_BANK must be location of .xsb file.
-const char SOUND_BANK[] = "";
+const char SOUND_BANK[] = "audio\\Win\\Sound Bank.xsb";
 
 // audio cues
+const char BGM[] = "marcus_kellis_theme"; //marcus_kellis_theme
+
 
 // key mappings
 // In this game simple constants are used for key mappings. If variables were used
