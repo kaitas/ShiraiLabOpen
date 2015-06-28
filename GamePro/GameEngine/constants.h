@@ -25,7 +25,7 @@ const UINT GAME_HEIGHT = 480;               // height of game in pixels
 // game
 const bool VSYNC = false;                   // true locks display to vertical sync rate
 const double PI = 3.14159265;
-const float FRAME_RATE = 240.0f;                // the target frame rate (frames/sec)
+const float FRAME_RATE = 100.0f;                // the target frame rate (frames/sec)
 const float MIN_FRAME_RATE = 10.0f;             // the minimum frame rate
 const float MIN_FRAME_TIME = 1.0f/FRAME_RATE;   // minimum desired time for 1 frame
 const float MAX_FRAME_TIME = 1.0f/MIN_FRAME_RATE; // maximum time used in calculations
@@ -33,7 +33,10 @@ const float MAX_FRAME_TIME = 1.0f/MIN_FRAME_RATE; // maximum time used in calcul
 // graphic images
 //const char MENU_IMAGE[] =     "pictures\\menu.png";      // menu texture
 const char MENU_IMAGE[] =     "pictures\\LV2015akiL.jpg";      // my texture
-const char SHIP_IMAGE[] = "pictures\\42386.png"; // Andor Genesis (not Solvalou ;-)
+const char SHIP_IMAGE[] = "pictures\\solvalou3.png"; 
+const char BOSS_IMAGE[] = "pictures\\42386.png"; // Andor Genesis
+const char ZAKO_IMAGE[] = "pictures\\kapi.png"; 
+const char BOMB_IMAGE[] = "pictures\\solvalou-exp.png"; 
 
 // audio files required by audio.cpp
 // WAVE_BANK must be location of .xwb file.
@@ -44,6 +47,9 @@ const char SOUND_BANK[] = "audio\\Win\\Sound Bank.xsb";
 // audio cues
 const char BGM[] = "marcus_kellis_theme"; //marcus_kellis_theme
 const char HIT[] = "Hit03-1"; // from http://musicisvfr.com/free/se/hit01.html
+// otoge file
+const char OTOGE[] = "otoge100fps.txt"; //音ゲー用スコアファイル
+
 
 // key mappings
 // In this game simple constants are used for key mappings. If variables were used

@@ -6,6 +6,7 @@
 #ifndef _CREATETHIS_H           // Prevent multiple definitions if this 
 #define _CREATETHIS_H           // file is included in more than one place
 #define WIN32_LEAN_AND_MEAN
+#define MAX_FRAME 12387
 
 #include <string>
 #include <sstream>
@@ -26,10 +27,21 @@ private:
 	//Add by Aki
 	TextureManager shipTexture;     // ship texture
 	Image   ship;                   // ship image
+	TextureManager bossTexture;     
+	Image   boss;                    
+	TextureManager zakoTexture;     
+	Image   zako;                    
+	TextureManager bombTexture;     
+	Image   bomb	;
+	Image target[MAX_FRAME]; 
+
 
     TextDX  *dxFont;            // DirectX font
     std::string  message;
     float messageY;
+	int counter,max_target;
+	int oto[20000][4]; //‚ ‚Ü‚è’·‚¢‚Æ“ü‚è‚«‚è‚Ü‚¹‚ñ
+
 
 public:
     // Constructor
