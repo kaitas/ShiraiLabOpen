@@ -1,0 +1,528 @@
+Change log for Programming 2D Games game engine.
+
+[Version 1.1]
+
+"entity.h" added the following functions:
+  // Set collision type (NONE, CIRCLE, BOX, ROTATED_BOX)
+  virtual void setCollisionType(entityNS::COLLISION_TYPE ctype)
+  {collisionType = ctype;}
+
+  // Set RECT structure used for BOX and ROTATED_BOX collision detection.
+  void setEdge(RECT e) {edge = e;}
+
+"graphics.cpp" changed for loop from i<modes-1 to i<modes
+  bool Graphics::isAdapterCompatible()
+  {
+      UINT modes = direct3d->GetAdapterModeCount(D3DADAPTER_DEFAULT, 
+                                              d3dpp.BackBufferFormat);
+      for(UINT i=0; i<modes; i++)
+
+[Version 1.2]
+       
+"entity.cpp" the collision vector returned by the collidesWith function was pointing in the wrong direction
+if the current entity was a circle and the other entity was using Box or RotatedBox. The corrected code is:
+    if (collisionType == entityNS::CIRCLE)  // if this entity uses CIRCLE collision
+    {
+        // Check for collision from other box with our circle
+        bool collide = ent.collideRotatedBoxCircle(*this, collisionVector); 
+        // Put the collision vector in the proper direction
+        collisionVector *= -1;              // reverse collision vector
+        return collide;
+    }
+
+[Version 1.3]
+
+Class declarations of the current class were added to each header file. 
+This prevents syntax errors when including other header files that contain includes of the current header file.
+
+"input.h" the game controller functions were testing for (n > MAX_CONTROLLERS) which was incorrect. 
+The correct test is (n > MAX_CONTROLLERS-1)
+
+[Version 1.4, 1.5]
+
+Comment and formatting changes.
+
+[Version 1.6]
+
+"game.cpp" added mouse wheel message handler.
+    case WM_MOUSEWHEEL:                     // mouse wheel move
+        input->mouseWheelIn(wParam);
+        return 0;
+
+"input.h" getMouseRawX and getMouseRawY modified to reset the mouse position to 0 after each read. 
+The mouse position returned is relative to the previous position. Added getMouseWheel function. 
+Returns the mouse wheel movement relative to previous position.
+
+    // Return raw mouse X movement relative to previous position.
+    // Left is <0, Right is >0
+    // Compatible with high-definition mouse.
+    int  getMouseRawX()
+    { 
+        int rawX = mouseRawX;
+        mouseRawX = 0;
+        return rawX; 
+    }
+
+    // Return raw mouse Y movement relative to previous position.
+    // Up is <0, Down is >0
+    // Compatible with high-definition mouse.
+    int  getMouseRawY()
+    { 
+        int rawY = mouseRawY;
+        mouseRawY = 0;
+        return rawY; 
+    }
+       
+    // Return mouse wheel movement relative to previous position.
+    // Forward is >0, Backward is <0, movement is in multiples of WHEEL_DATA (120).
+    int  getMouseWheel()
+    { 
+        int wheel = mouseWheel;
+        mouseWheel = 0;
+        return wheel; 
+    } 
+
+[Version 1.7]
+
+"constants.h" SAFE_DELETE, SAFE_RELEASE, SAFE_DELETE_ARRAY, SAFE_ON_LOST_DEVICE, SAFE_ON_RESET_DEVICE 
+macros replaced with template functions.
+
+    //=============================================================================
+    // Function templates for safely dealing with pointer referenced items.
+    // The functions defined by these templates may be called using a normal
+    // function call syntax. The compiler will create a function that replaces T
+    // with the type of the calling parameter.
+    //=============================================================================
+    // Safely release pointer referenced item
+    template <typename T>
+    inline void safeRelease(T& ptr)
+    {
+        if (ptr)
+        { 
+            ptr->Release(); 
+            ptr = NULL;
+        }
+    }
+    #define SAFE_RELEASE safeRelease            // for backward compatiblility
+
+    // Safely delete pointer referenced item
+    template <typename T>
+    inline void safeDelete(T& ptr)
+    {
+        if (ptr)
+        { 
+            delete ptr; 
+            ptr = NULL;
+        }
+    }
+    #define SAFE_DELETE safeDelete              // for backward compatiblility
+       
+    // Safely delete pointer referenced array
+    template <typename T>
+    inline void safeDeleteArray(T& ptr)
+    {
+        if (ptr)
+        { 
+            delete[] ptr; 
+            ptr = NULL;
+        }
+    }
+    #define SAFE_DELETE_ARRAY safeDeleteArray   // for backward compatiblility
+       
+    // Safely call onLostDevice
+    template <typename T>
+    inline void safeOnLostDevice(T& ptr)
+    {
+        if (ptr)
+            ptr->onLostDevice(); 
+    }
+    #define SAFE_ON_LOST_DEVICE safeOnLostDevice    // for backward compatiblility
+       
+    // Safely call onResetDevice
+    template <typename T>
+    inline void safeOnResetDevice(T& ptr)
+    {
+        if (ptr)
+            ptr->onResetDevice(); 
+    }
+    #define SAFE_ON_RESET_DEVICE safeOnResetDevice  // for backward compatiblility
+
+"graphics.h" TRANSCOLOR changed from D3DCOLOR_ARGB(0,255,0,255) to MAGENTA which is 
+defined as D3DCOLOR_ARGB(255,255,0,255). This magenta color matches the color used by Microsoft Paint. 
+TRANSCOLOR was moved to the graphicsNS namespace. 
+
+[Version 1.8]
+
+"input.h" Deadzone added to gamepad trigger and thumbstick input. The Undead flavor of
+each function returns the raw gamepad data.
+
+    // Return value of controller n Left Trigger (0 through 255).
+    // Trigger movement less than GAMEPAD_TRIGGER_DEADZONE returns 0.
+    // Return value is scaled to 0 through 255
+    BYTE getGamepadLeftTrigger(UINT n);
+
+    // Return value of controller n Left Trigger (0 through 255).
+    // Deadzone is not applied.
+    BYTE getGamepadLeftTriggerUndead(UINT n) 
+    {
+        if(n > MAX_CONTROLLERS-1)
+            n=MAX_CONTROLLERS-1;
+        return controllers[n].state.Gamepad.bLeftTrigger;
+    }
+
+    // Return value of controller n Right Trigger (0 through 255).
+    // Trigger movement less than GAMEPAD_TRIGGER_DEADZONE returns 0.
+    // Return value is scaled to 0 through 255
+    BYTE getGamepadRightTrigger(UINT n);
+
+    // Return value of controller n Right Trigger (0 through 255).
+    // Deadzone is not applied.
+    BYTE getGamepadRightTriggerUndead(UINT n) 
+    {
+        if(n > MAX_CONTROLLERS-1)
+            n=MAX_CONTROLLERS-1;
+        return controllers[n].state.Gamepad.bRightTrigger;
+    }
+
+    // Return value of controller n Left Thumbstick X (-32767 through 32767).
+    // Stick movement less than GAMEPAD_THUMBSTICK_DEADZONE returns 0.
+    // Return value is scaled to -32768 through 32767
+    SHORT getGamepadThumbLX(UINT n);
+
+    // Return value of controller n Left Thumbstick X (-32767 through 32767).
+    // Deadzone is not applied.
+    SHORT getGamepadThumbLXUndead(UINT n) 
+    {
+        if(n > MAX_CONTROLLERS-1)
+            n=MAX_CONTROLLERS-1;
+        return controllers[n].state.Gamepad.sThumbLX;
+    }
+
+    // Return value of controller n Left Thumbstick Y (-32768 through 32767).
+    // Stick movement less than GAMEPAD_THUMBSTICK_DEADZONE returns 0.
+    // Return value is scaled to -32768 through 32767
+    SHORT getGamepadThumbLY(UINT n);
+
+    // Return value of controller n Left Thumbstick Y (-32768 through 32767).
+    // Deadzone is not applied.
+    SHORT getGamepadThumbLYUndead(UINT n) 
+    {
+        if(n > MAX_CONTROLLERS-1)
+            n=MAX_CONTROLLERS-1;
+        return controllers[n].state.Gamepad.sThumbLY;
+    }
+
+    // Return value of controller n Right Thumbstick X (-32768 through 32767).
+    // Stick movement less than GAMEPAD_THUMBSTICK_DEADZONE returns 0.
+    // Return value is scaled to -32768 through 32767
+    SHORT getGamepadThumbRX(UINT n);
+
+    // Return value of controller n Right Thumbstick X (-32768 through 32767).
+    // Deadzone is not applied.
+    SHORT getGamepadThumbRXUndead(UINT n) 
+    {
+        if(n > MAX_CONTROLLERS-1)   // if invalid controller number
+            n=MAX_CONTROLLERS-1;    // force valid
+        return controllers[n].state.Gamepad.sThumbRX;
+    }
+
+    // Return value of controller n Right Thumbstick Y (-32768 through 32767).
+    // Stick movement less than GAMEPAD_THUMBSTICK_DEADZONE returns 0.
+    // Return value is scaled to -32768 through 32767
+    SHORT getGamepadThumbRY(UINT n);
+
+    // Return value of controller n Right Thumbstick Y (-32768 through 32767).
+    // Deadzone is not applied.
+    SHORT getGamepadThumbRYUndead(UINT n) 
+    {
+        if(n > MAX_CONTROLLERS-1)
+            n=MAX_CONTROLLERS-1;
+        return controllers[n].state.Gamepad.sThumbRY;
+    }
+
+
+"input.cpp" 
+
+    //=============================================================================
+    // Return value of controller n Left Trigger (0 through 255).
+    // Trigger movement less than GAMEPAD_TRIGGER_DEADZONE returns 0.
+    // Return value is scaled to 0 through 255
+    //=============================================================================
+    BYTE Input::getGamepadLeftTrigger(UINT n) 
+    {
+        BYTE value = getGamepadLeftTriggerUndead(n);
+        if(value > GAMEPAD_TRIGGER_DEADZONE)    // if > dead zone
+            //adjust magnitude relative to the end of the dead zone
+            value = (value-GAMEPAD_TRIGGER_DEADZONE)*255/
+            (255-GAMEPAD_TRIGGER_DEADZONE);
+        else                                    // else, < dead zone
+            value = 0;
+        return value;
+    }
+
+    //=============================================================================
+    // Return value of controller n Right Trigger (0 through 255).
+    // Trigger movement less than GAMEPAD_TRIGGER_DEADZONE returns 0.
+    // Return value is scaled to 0 through 255
+    //=============================================================================
+    BYTE Input::getGamepadRightTrigger(UINT n) 
+    {
+        BYTE value = getGamepadRightTriggerUndead(n);
+        if(value > GAMEPAD_TRIGGER_DEADZONE)    // if > dead zone
+            //adjust magnitude relative to the end of the dead zone
+            value = (value-GAMEPAD_TRIGGER_DEADZONE)*255/
+            (255-GAMEPAD_TRIGGER_DEADZONE);
+        else                                    // else, < dead zone
+            value = 0;
+        return value;
+    }
+
+    //=============================================================================
+    // Return value of controller n Left Thumbstick X (-32767 through 32767).
+    // Stick movement less than GAMEPAD_THUMBSTICK_DEADZONE returns 0.
+    // Return value is scaled to -32768 through 32767
+    //=============================================================================
+    SHORT Input::getGamepadThumbLX(UINT n) 
+    {
+        int x = getGamepadThumbLXUndead(n);
+        if(x > GAMEPAD_THUMBSTICK_DEADZONE) // if +x outside dead zone
+            //adjust x relative to the deadzone and scale to 0 through 32767
+            x = (x-GAMEPAD_THUMBSTICK_DEADZONE)*32767/
+            (32767-GAMEPAD_THUMBSTICK_DEADZONE);
+        else if(x < -GAMEPAD_THUMBSTICK_DEADZONE)   // if -x outside dead zone
+            //adjust y relative to the deadzone and scale to 0 through -32767
+            x = (x+GAMEPAD_THUMBSTICK_DEADZONE)*32767/
+            (32767-GAMEPAD_THUMBSTICK_DEADZONE);
+        else        // else, x inside dead zone
+            x = 0;  // return 0
+        return static_cast<SHORT>(x);
+    }
+
+    //=============================================================================
+    // Return value of controller n Left Thumbstick Y (-32768 through 32767).
+    // Stick movement less than GAMEPAD_THUMBSTICK_DEADZONE returns 0.
+    // Return value is scaled to -32768 through 32767
+    //=============================================================================
+    SHORT Input::getGamepadThumbLY(UINT n) 
+    {
+        int y = getGamepadThumbLYUndead(n);
+        if(y > GAMEPAD_THUMBSTICK_DEADZONE) // if +y outside dead zone
+            //adjust magnitude relative to the end of the dead zone
+            y = (y-GAMEPAD_THUMBSTICK_DEADZONE)*32767/
+            (32767-GAMEPAD_THUMBSTICK_DEADZONE);
+        else if(y < -GAMEPAD_THUMBSTICK_DEADZONE)   // if -y outside dead zone
+            //adjust magnitude relative to the end of the dead zone
+            y = (y+GAMEPAD_THUMBSTICK_DEADZONE)*32767/
+            (32767-GAMEPAD_THUMBSTICK_DEADZONE);
+        else        // else, y inside dead zone
+            y = 0;  // return 0
+        return static_cast<SHORT>(y);
+    }
+
+    //=============================================================================
+    // Return value of controller n Right Thumbstick X (-32768 through 32767).
+    // Stick movement less than GAMEPAD_THUMBSTICK_DEADZONE returns 0.
+    // Return value is scaled to -32768 through 32767
+    //=============================================================================
+    SHORT Input::getGamepadThumbRX(UINT n) 
+    {
+        int x = getGamepadThumbRXUndead(n);
+        if(x > GAMEPAD_THUMBSTICK_DEADZONE) // if +x outside dead zone
+            //adjust magnitude relative to the end of the dead zone
+            x = (x-GAMEPAD_THUMBSTICK_DEADZONE)*32767/
+            (32767-GAMEPAD_THUMBSTICK_DEADZONE);
+        else if(x < -GAMEPAD_THUMBSTICK_DEADZONE)   // if -x outside dead zone
+            //adjust magnitude relative to the end of the dead zone
+            x = (x+GAMEPAD_THUMBSTICK_DEADZONE)*32767/
+            (32767-GAMEPAD_THUMBSTICK_DEADZONE);
+        else        // else, x inside dead zone
+            x = 0;  // return 0
+        return static_cast<SHORT>(x);
+    }
+
+    //=============================================================================
+    // Return value of controller n Right Thumbstick Y (-32768 through 32767).
+    // Stick movement less than GAMEPAD_THUMBSTICK_DEADZONE returns 0.
+    // Return value is scaled to -32768 through 32767
+    //=============================================================================
+    SHORT Input::getGamepadThumbRY(UINT n) 
+    {
+        int y = getGamepadThumbRYUndead(n);
+        if(y > GAMEPAD_THUMBSTICK_DEADZONE) // if +y outside dead zone
+            //adjust magnitude relative to the end of the dead zone
+            y = (y-GAMEPAD_THUMBSTICK_DEADZONE)*32767/
+            (32767-GAMEPAD_THUMBSTICK_DEADZONE);
+        else if(y < -GAMEPAD_THUMBSTICK_DEADZONE)   // if -y outside dead zone
+            //adjust magnitude relative to the end of the dead zone
+            y = (y+GAMEPAD_THUMBSTICK_DEADZONE)*32767/
+            (32767-GAMEPAD_THUMBSTICK_DEADZONE);
+        else        // else, y inside dead zone
+            y = 0;  // return 0
+        return static_cast<SHORT>(y);
+    }
+
+[Version 1.9]
+
+"input.h and input.cpp" Added thumbstickDeadzone and triggerDeadzone variables.
+The variables are initialized with the constants GAMEPAD_THUMBSTICK_DEADZONE
+and GAMEPAD_TRIGGER_DEADZONE respectively. Added functions to set and get the variables: 
+    // Set thumbstick deadzone
+    void setThumbstickDeadzone(short dz) { thumbstickDeadzone = abs(dz); }
+
+    // Set trigger deadzone
+    void setTriggerDeadzone(BYTE dz) { triggerDeadzone = dz; }
+
+    // Get thumbstick deadzone
+    short getThumbstickDeadzone() { return thumbstickDeadzone; }
+
+    // Get trigger deadzone
+    BYTE getTriggerDeadzone() { return static_cast<BYTE>(triggerDeadzone); }
+Using variables permits the game programmer to change the deadzone values.
+
+[Version 2.0]
+
+"input.h" Added getGamepadConnected function which returns the connection state of the specified controller.
+    // Return connection state of specified game controller
+    bool getGamepadConnected(UINT n)
+    {
+        if(n > MAX_CONTROLLERS-1)
+            n=MAX_CONTROLLERS-1;
+        return controllers[n].connected;
+    }
+
+[Version 2.1]
+
+Changed the console key from using a virtual key code to a character. This
+change was done to better accomodate international keyboards.
+"input.h" Added
+    // Clear last character entered
+    void clearCharIn()      {charIn = 0;}
+"game.cpp"
+The CONSOLE_KEY constant is defined in constants.h as '`'.
+    //check for console key
+    if (input->getCharIn() == CONSOLE_KEY)
+    {
+        input->clearCharIn();       // clear last char
+The last character must be cleared so it will toggle the console on and off.
+
+[Version 2.2]
+
+"entity.h and entity.cpp" Changed the collideRotateBox and collideRotatedBoxCircle
+functions. The collisionVector returned is now perpendicular to the edge that is in collision.
+    // The edge with the smallest overlapping section is the edge where
+    // the collision is occuring. The collision vector is created perpendicular
+    // to the collision edge.
+    // min01, min03, max01, max03 are the projection limits for one object and
+    // edge01Min, edge01Max, edge03Min, edge03Max are the projection limits
+    // for the other object. This code was contributed to the programming2dgames
+    // forum by user stbn. The technique is described at 
+    // www.metanetsoftware.com/technique/tutorialA.html
+    if (min01 < edge01Min)
+    {
+        minOverlap = max01 - edge01Min;
+        collisionVector = corners[0] - corners[1];
+    }
+    else
+    {
+        minOverlap = edge01Max - min01;
+        collisionVector = corners[1] - corners[0];
+    }
+    if (min03 < edge03Min)
+    {
+        minOverlap2 = max03 - edge03Min;
+        if (minOverlap2 < minOverlap)
+            collisionVector = corners[0] - corners[3];
+    }
+    else
+    {
+        minOverlap2 = edge03Max - min03;
+        if (minOverlap2 < minOverlap)
+            collisionVector = corners[3] - corners[0];
+    }
+    return true;                            // projections overlap
+
+[Version 2.3]
+
+"entity.cpp" The collision vector was reversed in the above calculations, 
+that has been corrected to make it consistant with the other code. The
+collision vector points in the opposite direction from the diagrams shown
+in the book. See the errata post on the forum for corrected diagrams. The
+bounce function was changed to always move items out of collision along
+the collision vector:
+    // Move entities out of collision along collision vector
+    VECTOR2 cv;
+    int count=10;   // loop limit
+    do
+    {
+        setX(getX() - cUV.x * massRatio);
+        setY(getY() - cUV.y * massRatio);
+        rotatedBoxReady = false;
+        count--;
+    } while( this->collidesWith(ent, cv) || count);
+
+[Version 2.4]
+
+"entity.cpp" Limit massRatio to no smaller than 0.1f and fix bug (|| count to && count) in bounce function:
+    if(massRatio < 0.1f)
+        massRatio = 0.1f;
+
+    // Move entities out of collision along collision vector
+    VECTOR2 cv;
+    int count=10;   // loop limit
+    do
+    {
+        setX(getX() - cUV.x * massRatio);
+        setY(getY() - cUV.y * massRatio);
+        rotatedBoxReady = false;
+        count--;
+    } while( this->collidesWith(ent, cv) && count);
+
+[Version 2.5]
+
+"entity.cpp, entity.h" Slight increase in speed that entities are moved apart during collision.
+"image.cpp, image.h" Modifications to support multiple textures in TextureManager.
+"textureManager.cpp, textureManager.h" Modified to support loading multiple texture files.
+If the file named used in the call to the initialize function has a .txt extension it is assumed
+to contain a list of texture file names, one name per row. This change was made to accomodate
+tile based games that scroll the tiles. Such games require a separate texture file for each tile
+for the best visual appearance.
+
+[Version 2.6]
+
+Graphics and Entity classes: Added PIXEL_PERFECT collision detection.
+TextureManager class: Corrected bug, false was not being returned if a texture file failed to load.
+
+Pixel perfect collision detection uses the graphics card stencil buffer. All modern graphics cards
+support a stencil buffer. To check for stencil buffer support call the function
+Graphics::getStencilSupport(). It returns true if the graphics cards supports a stencil buffer.
+The number of pixels that are colliding can be read with the Entity::getPixelsColliding() function.
+function Entity::getPixelsColliding().
+
+[Version 2.7]
+"entity.cpp" Bug fix. If PIXEL_PERFECT collision was in use and the textures were released they
+were not recovered. Added the following code to collidePixelPerfect.
+    // get fresh texture because they may have been released
+    ent.spriteData.texture = ent.textureManager->getTexture();
+    spriteData.texture = textureManager->getTexture();
+
+    // if pixels are colliding
+
+[Version 2.8]
+"entity.cpp, entity.h" The collision vector for CIRCLE vs. ROTATED_BOX was inverted.
+The bounce function did not work correctly if one entity was stationary.
+Improved the comments that describe how the collison vector is determined.
+"input.h" Added setTextIn(std::string str) function.
+"textureManager.cpp" The initialize function would fail to load the last texture specified
+in the .txt file of texture names if the .txt file did not end with a carriage return.
+
+[Version 2.9]
+"entity.cpp" Modification to the bounce function for more realistic operation with with ROTATED_BOX.
+
+[Version 3.0]
+Removed exception specifications from gameError.h
+VSYNC added to constants.h, set to true to lock frame rate to vertical sync rate.
+
+[Version 3.1]
+Net class sendData function may specify port. readData function may return port.
+
+

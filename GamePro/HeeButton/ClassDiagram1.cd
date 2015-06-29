@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Audio" Collapsed="true">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>KgAAAgIAAAAAAAAAAAEAAEEAAAAQAAAAAAAIAgAAAQA=</HashCode>
+      <FileName>audio.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Console" Collapsed="true">
+    <Position X="9.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QCSQAAEAABCAAAAAAJNACBBIAAAAgBgJFEFgCAAAAEA=</HashCode>
+      <FileName>console.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bar" Collapsed="true">
+    <Position X="0.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>dashboard.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entity" Collapsed="true">
+    <Position X="5.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>kIwIhMgAyAgJhAAAYgFAQAgBACQBBDBKOERAZEAETBo=</HashCode>
+      <FileName>entity.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameError" Collapsed="true">
+    <Position X="11.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAiAAAAACAAAAAAAAAAAAAAAAAAAAIAAAgACAgACA=</HashCode>
+      <FileName>gameError.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Game" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CCAIEiUAwDABABBAAREBAAQhAAyBEBgIIBAAAAgUICA=</HashCode>
+      <FileName>game.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graphics" Collapsed="true">
+    <Position X="7.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>kIgASggEBIAkEIRARFECAACACBQEBERLIgUCAAkAAAE=</HashCode>
+      <FileName>graphics.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InputDialog" Collapsed="true">
+    <Position X="3.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQQAAAAAAABBAAAAAIAKAQRAAAAAAAAAAAAABAFAFA=</HashCode>
+      <FileName>inputDialog.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MessageDialog" Collapsed="true">
+    <Position X="3.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACQAgImAABCwFQQAYIMAAAAAgAACgBoJFQFiCAgGAEA=</HashCode>
+      <FileName>messageDialog.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Net" Collapsed="true">
+    <Position X="11.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QIQAgAEAAgEAACCAAAMCAAAAAABhwAAAAQACAAAAAAA=</HashCode>
+      <FileName>net.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Text" Collapsed="true">
+    <Position X="3" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEUAEACAACgAsCQSQIkgAAAIAAQAQAiBFAEgCQIGgkE=</HashCode>
+      <FileName>text.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TextureManager" Collapsed="true">
+    <Position X="9.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAABAAAgQARIEAAAAABAABQggAAEEAAAAAAEA=</HashCode>
+      <FileName>textureManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Input" Collapsed="true">
+    <Position X="9.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>A8AQRIEBX0AROUOABskIIEXYHEEBwBBUQFAoAYgJAhA=</HashCode>
+      <FileName>input.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CreateThis" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAQAABABEAAAEAAAgEAAAAQIAIAAAAAAAUACA=</HashCode>
+      <FileName>createThisClass.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Image" Collapsed="true">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>cAAQAYhAgDAELgEAACM+AIIACACpxBsCAACATmQEAgQ=</HashCode>
+      <FileName>image.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TextDX" Collapsed="true">
+    <Position X="7.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACQAAAAAAAAAJCAAAIEAAiAAAAAAAAmAAAAQQgBCAEA=</HashCode>
+      <FileName>textDX.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="VertexC" Collapsed="true">
+    <Position X="9.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACBAABgAQAAAAA=</HashCode>
+      <FileName>graphics.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SpriteData" Collapsed="true">
+    <Position X="7.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAQAQAAAIAICAAAAAgAAAABgAABAAAA=</HashCode>
+      <FileName>graphics.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ControllerState" Collapsed="true">
+    <Position X="7.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAQAAIAAAAAAAAAAAAAAAEAAAAAAAABAA=</HashCode>
+      <FileName>input.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="netNS::ErrorCode" Collapsed="true">
+    <Position X="9.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAACA=</HashCode>
+      <FileName>net.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="textNS::FontData" Collapsed="true">
+    <Position X="11.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>text.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="entityNS::COLLISION_TYPE" Collapsed="true">
+    <Position X="9.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAJAAAAAAQAACAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>entity.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="graphicsNS::DISPLAY_MODE" Collapsed="true">
+    <Position X="11.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAEAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>graphics.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="textNS::Alignment" Collapsed="true">
+    <Position X="7.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAgAAAIAQAAIIA=</HashCode>
+      <FileName>text.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="メイリオ" Size="9" />
+</ClassDiagram>
